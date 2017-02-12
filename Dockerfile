@@ -23,28 +23,30 @@ ENV ADMIN_PWD superset
 
 ENV REDIS_URL none
 
-# by default only includes PostgreSQL because I'm selfish
-ENV DB_PACKAGES libpq-dev libmysqlclient-dev
-ENV DB_PIP_PACKAGES psycopg2 mysql-connector
+# Supports PostgreSQL, MySQL, Microsoft and Sybase ASE connections
+ENV DB_PACKAGES libpq-dev libmysqlclient-dev unixodbc unixodbc-dev freetds-dev tdsodbc
+ENV DB_PIP_PACKAGES psycopg2 mysql-connector pyodbc
 
 RUN apt-get update \
 && apt-get install -y \
   build-essential \
-  libssl-dev libffi-dev libsasl2-dev libldap2-dev \
+  libssl-dev libffi-dev libsasl2-dev libldap2-dev $DB_PACKAGES \
 && pip install --no-cache-dir \
   $DB_PIP_PACKAGES flask-appbuilder superset==$SUPERSET_VERSION \
 && apt-get remove -y \
   build-essential libssl-dev libffi-dev libsasl2-dev libldap2-dev \
 && apt-get -y autoremove && apt-get clean && rm -rf /var/lib/apt/lists/*
 
-# install DB packages separately
-RUN apt-get update && apt-get install -y $DB_PACKAGES \
-&& apt-get autoremove -y && apt-get clean && rm -rf /var/lib/apt/lists/*
+# Cleanup
+RUN apt-get autoremove -y && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # remove build dependencies
 RUN mkdir $SUPERSET_HOME
 
 COPY superset-init.sh /superset-init.sh
+COPY odbcinst.ini /etc/odbcinst.ini
+COPY odbc.ini /etc/odbc.ini
+COPY freetds.conf /etc/freetds/freetds.conf
 RUN chmod +x /superset-init.sh
 
 VOLUME $SUPERSET_HOME
