@@ -11,12 +11,21 @@ An extendable Docker image for Airbnb's [Superset](airbnb.io/superset) platform.
   * MySQL driver
   * MariaDB installed as superset backend database
 
-# Basic Setup
+# Test run
 
 By default the Superset meta database will be stored in a local sqlite database, in the most basic case getting a working Caravel instance up and running is as simple as:
 
 ```bash
-docker run -d --name superset -p 8088:8088 -e VIRTUAL_HOST=superset.local -v ?:? tylerfowler/superset
+docker run -d --name superset -p 8088:8088 -e VIRTUAL_HOST=superset.local tylerfowler/superset
+```
+
+# Production run
+
+MySQL is in separate container, Redis cache is enabled. Visit http://localhost:8088. 
+If you have jwilder/nginx-proxy, http://superset.local will be available.
+
+```bash
+docker-compose -p superset up -d
 ```
 
 # Additional information
