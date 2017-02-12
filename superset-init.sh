@@ -20,6 +20,16 @@ SECRET_KEY = '${SUP_SECRET_KEY}'
 SQLALCHEMY_DATABASE_URI = '${SUP_META_DB_URI}'
 CSRF_ENABLED = ${SUP_CSRF_ENABLED}
 EOF
+
+
+  if [ "$REDIS_URL" != "" ]; 
+cat <<EOF >> $SUPERSET_HOME/superset_config.py
+CACHE_CONFIG = {
+  'CACHE_TYPE': 'RedisCache',
+  'CACHE_REDIS_URL': 'localhost:6379'
+}
+EOF
+  fi
 fi
 
 # check for existence of /docker-entrypoint.sh & run it if it does

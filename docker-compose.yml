@@ -1,0 +1,29 @@
+version: '2'
+services:
+  redis:
+    image: redis:3.2-alpine
+    restart: always
+    volumes:
+      - /data/superset/redis:/data
+  mysql:
+    image: mariadb:10.1
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: 123
+      MYSQL_DATABASE: superset
+      MYSQL_USER: superset
+      MYSQL_PASSWORD: 123
+    volumes:
+      - /data/superset/mysql:/var/lib/mysql
+  superset:
+    image: huksley/superset
+    restart: always
+    depends_on:
+      - mysql
+      - redis
+    environment:
+      VIRTUAL_HOST: superset.local
+      SUP_META_DB_URI: mysql+mysqlconnector://superset:123@mysql/superset
+      REDIS_URL: redis:6379
+    ports:
+      - "8088:8088"
