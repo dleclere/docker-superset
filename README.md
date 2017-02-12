@@ -9,7 +9,7 @@ An extendable Docker image for Airbnb's [Superset](airbnb.io/superset) platform.
   * AirBnB Superset
   * PostgreSQL driver
   * MySQL driver
-  * MariaDB installed as superset backend database
+  * MS SQL/Sybase through ODBC
 
 # Test run
 
@@ -28,6 +28,15 @@ If you have jwilder/nginx-proxy, http://superset.local will be available.
 docker-compose -p superset up -d
 ```
 
+# Driver URLs
+
+  * mysql+mysqlconnector://user:password@host[:port]/dbname
+  * sybase+pyodbc://username:password@dsnname[/database]
+  * postgresql+psycopg2://user:password@host:port/dbname[?key=value&key=value...]
+
 # Additional information
 
-Consult original docker image at https://github.com/tylerFowler/docker-superset for additional configuration.
+  * Consult original docker image at https://github.com/tylerFowler/docker-superset for additional configuration.
+  * http://www.py-my.ru/post/50fe762371144856ca000006
+  * http://docs.sqlalchemy.org/en/rel_1_1/dialects/index.html
+
