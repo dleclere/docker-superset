@@ -21,7 +21,7 @@ ENV ADMIN_LAST_NAME user
 ENV ADMIN_EMAIL admin@nowhere.com
 ENV ADMIN_PWD superset
 
-ENV REDIS_URL
+ENV REDIS_URL none
 
 # by default only includes PostgreSQL because I'm selfish
 ENV DB_PACKAGES libpq-dev libmysqlclient-dev

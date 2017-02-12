@@ -22,7 +22,7 @@ CSRF_ENABLED = ${SUP_CSRF_ENABLED}
 EOF
 
 
-  if [ "$REDIS_URL" != "" ]; 
+  if [[ "${REDIS_URL:none}" != "none" ]]; then 
 cat <<EOF >> $SUPERSET_HOME/superset_config.py
 CACHE_CONFIG = {
   'CACHE_TYPE': 'RedisCache',

@@ -6,7 +6,7 @@ services:
     volumes:
       - /data/superset/redis:/data
   mysql:
-    image: mariadb:10.1
+    image: mysql:5.7
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: 123
@@ -15,7 +15,8 @@ services:
       MYSQL_PASSWORD: 123
     volumes:
       - /data/superset/mysql:/var/lib/mysql
-  superset:
+  server:
+    build: .
     image: huksley/superset
     restart: always
     depends_on:
@@ -26,4 +27,4 @@ services:
       SUP_META_DB_URI: mysql+mysqlconnector://superset:123@mysql/superset
       REDIS_URL: redis:6379
     ports:
-      - "8088:8088"
+      - "80:8088"
