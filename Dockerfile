@@ -24,8 +24,8 @@ ENV ADMIN_PWD superset
 ENV REDIS_URL none
 
 # Supports PostgreSQL, MySQL, Microsoft and Sybase ASE connections
-ENV DB_PACKAGES libpq-dev libmysqlclient-dev unixodbc unixodbc-dev freetds-dev tdsodbc
-ENV DB_PIP_PACKAGES psycopg2 mysql-connector pyodbc
+ENV DB_PACKAGES libpq5 libpq-dev libmysqlclient-dev unixodbc unixodbc-dev freetds-dev
+ENV DB_PIP_PACKAGES psycopg2 mysql-connector pyodbc numpy
 
 RUN apt-get update \
 && apt-get install -y \
@@ -38,7 +38,7 @@ RUN apt-get update \
 && apt-get -y autoremove && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Cleanup
-RUN apt-get autoremove -y && apt-get clean && rm -rf /var/lib/apt/lists/*
+#RUN apt-get autoremove -y && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # remove build dependencies
 RUN mkdir $SUPERSET_HOME
