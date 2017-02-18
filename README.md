@@ -1,7 +1,7 @@
 Superset
 ===============
 
-An extendable Docker image for Airbnb's [Superset](airbnb.io/superset) platform.
+An extendable Docker image for Airbnb's [Superset](http://airbnb.io/superset) platform.
 
 # Features
 
