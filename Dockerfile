@@ -26,7 +26,7 @@ ENV ADMIN_PWD superset
 ENV REDIS_URL none
 
 # Supports PostgreSQL, MySQL, Microsoft and Sybase ASE connections
-ENV DB_PACKAGES libpq5 libpq-dev libmysqlclient-dev unixodbc unixodbc-dev freetds-dev
+ENV DB_PACKAGES libpq5 libpq-dev default-libmysqlclient-dev unixodbc unixodbc-dev freetds-dev
 ENV DB_PIP_PACKAGES psycopg2 mysql-connector pyodbc numpy sqlalchemy-redshift
 
 RUN apt-get update \

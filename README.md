@@ -7,7 +7,7 @@ An extendable Docker image for Airbnb's [Superset](https://superset.apache.org/)
 
 # Features
 
-  * Python 3.6 + Debian Wheezy
+  * Python 3.6 + Debian Stretch
   * AirBnB Superset
   * PostgreSQL driver
   * MySQL driver
