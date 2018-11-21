@@ -6,7 +6,7 @@ set -eo pipefail
 # running the user supplied docker-entrypoint.sh, note that this means
 # that users can copy over a prewritten superset config and that will be used
 # without being modified
-echo "Checking for existing Caravel config..."
+echo "Checking for existing Superset config..."
 if [ ! -f $SUPERSET_HOME/superset_config.py ]; then
   echo "No Superset config found, creating from environment"
   touch $SUPERSET_HOME/superset_config.py
@@ -18,7 +18,9 @@ SUPERSET_WEBSERVER_PORT = ${SUP_WEBSERVER_PORT}
 SUPERSET_WEBSERVER_TIMEOUT = ${SUP_WEBSERVER_TIMEOUT}
 SECRET_KEY = '${SUP_SECRET_KEY}'
 SQLALCHEMY_DATABASE_URI = '${SUP_META_DB_URI}'
-CSRF_ENABLED = ${SUP_CSRF_ENABLED}
+WTF_CSRF_ENABLED = ${SUP_CSRF_ENABLED}
+WTF_CSRF_EXEMPT_LIST = ${SUP_CSRF_EXEMPT_LIST}
+MAPBOX_API_KEY = '${SUP_MAPBOX_API_KEY}'
 EOF
 
 
@@ -40,9 +42,9 @@ if [ -f /docker-entrypoint.sh ]; then
   . docker-entrypoint.sh
 fi
 
-# set up Caravel if we haven't already
+# set up Superset if we haven't already
 if [ ! -f $SUPERSET_HOME/.setup-complete ]; then
-  echo "Running first time setup for Caravel"
+  echo "Running first time setup for Superset"
 
   echo "Creating admin user ${ADMIN_USERNAME}"
   cat > $SUPERSET_HOME/admin.config <<EOF
@@ -71,5 +73,5 @@ else
   superset db upgrade
 fi
 
-echo "Starting up Caravel"
+echo "Starting up Superset"
 superset runserver -p 8088 -a 0.0.0.0 -t ${SUP_WEBSERVER_TIMEOUT}
