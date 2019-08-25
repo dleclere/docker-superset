@@ -4,7 +4,7 @@ services:
     image: redis:3.2-alpine
     restart: always
     volumes:
-      - /data/superset/redis:/data
+      - ./data/redis:/data
   mysql:
     image: mysql:5.7
     restart: always
@@ -14,10 +14,9 @@ services:
       MYSQL_USER: superset
       MYSQL_PASSWORD: 123
     volumes:
-      - /data/superset/mysql:/var/lib/mysql
+      - ./data/mysql:/var/lib/mysql
   server:
-    build: .
-    image: huksley/superset
+    image: huksley/superset:0.28
     restart: always
     depends_on:
       - mysql
@@ -27,4 +26,4 @@ services:
       SUP_META_DB_URI: mysql+mysqlconnector://superset:123@mysql/superset
       REDIS_URL: redis:6379
     ports:
-      - "80:8088"
+      - "8088:8088"

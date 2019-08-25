@@ -27,7 +27,7 @@ ENV REDIS_URL none
 
 # Supports PostgreSQL, MySQL, Microsoft and Sybase ASE connections
 ENV DB_PACKAGES libpq5 libpq-dev default-libmysqlclient-dev unixodbc unixodbc-dev freetds-dev
-ENV DB_PIP_PACKAGES psycopg2 mysql-connector pyodbc numpy sqlalchemy-redshift
+ENV DB_PIP_PACKAGES psycopg2 mysql-connector pyodbc numpy sqlalchemy-redshift redis redis-cache
 
 RUN apt-get update \
 && apt-get install -y \

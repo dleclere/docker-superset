@@ -27,7 +27,7 @@ EOF
   if [[ "${REDIS_URL:none}" != "none" ]]; then 
 cat <<EOF >> $SUPERSET_HOME/superset_config.py
 CACHE_CONFIG = {
-  'CACHE_TYPE': 'RedisCache',
+  'CACHE_TYPE': 'redis',
   'CACHE_REDIS_URL': '${REDIS_URL}'
 }
 EOF
